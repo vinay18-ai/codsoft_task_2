@@ -2,34 +2,34 @@ import turtle
 import random
 
 def draw_square(x, y):
-    """Draw a square at the given (x, y) position."""
+
     turtle.penup()
     turtle.goto(x, y)
     turtle.pendown()
 
     for _ in range(4):
-        turtle.forward(60)  # Length of each side
-        turtle.right(90)  # Turn right by 90 degrees
+        turtle.forward(60)
+        turtle.right(90)
 
 def draw_grid():
-    """Draw a 3x3 grid of squares."""
-    start_x = -90  # Starting position for the grid
-    start_y = 90   # Starting position for the grid
+
+    start_x = -90
+    start_y = 90
 
     for row in range(3):
         for col in range(3):
             draw_square(start_x + col * 60, start_y - row * 60)
 
 def draw_title():
-    """Draw the game title at the top of the screen."""
+
     turtle.penup()
-    turtle.goto(0, 130)  # Position for the title
+    turtle.goto(0, 130)
     turtle.pendown()
     turtle.write("TIC TAC TOE", align='center', font=('Arial', 24, 'bold'))
     turtle.penup()
 
 def draw_move(row, col, player):
-    """Draw 'X' or 'O' in the specified square."""
+
     x = -65 + col * 60 + 10
     y = 65 - row * 60 - 30
     turtle.penup()
@@ -42,7 +42,7 @@ def draw_move(row, col, player):
         turtle.write('O', align='center', font=('Arial', 40, 'normal'))
 
 def check_winner(board):
-    """Check for a winner in the board."""
+
     for row in board:
         if row[0] == row[1] == row[2] != " ":
             return row[0]
@@ -60,23 +60,22 @@ def check_winner(board):
     return None
 
 def is_board_full(board):
-    """Check if the board is full."""
+
     return all(cell != " " for row in board for cell in row)
 
 def ai_move(board):
-    """AI makes a move on the board."""
+
     empty_cells = [(i, j) for i in range(3) for j in range(3) if board[i][j] == " "]
     return random.choice(empty_cells)
 
 def tic_tac_toe():
-    """Main function to run the Tic-Tac-Toe game."""
+
     board = [[" " for _ in range(3)] for _ in range(3)]
-    current_player = "X"  # Human player
-    ai_player = "O"  # AI player
+    current_player = "X"
+    ai_player = "O"
 
-    draw_title()  # Draw the title
-    draw_grid()  # Draw the board
-
+    draw_title()
+    draw_grid()
     while True:
         if current_player == "X":
             # Human move
@@ -90,11 +89,11 @@ def tic_tac_toe():
                     else:
                         continue
                 except (ValueError, IndexError):
-                    continue  # Ignore invalid inputs
+                    continue
             else:
                 break
         else:
-            # AI move
+
             row, col = ai_move(board)
             board[row][col] = ai_player
             draw_move(row, col, ai_player)
@@ -118,10 +117,10 @@ def tic_tac_toe():
 
     turtle.done()
 
-# Initialize the turtle screen
+
 screen = turtle.Screen()
 screen.title("Tic-Tac-Toe Game")
 screen.setup(width=300, height=300)
 
-# Run the game
+
 tic_tac_toe()
